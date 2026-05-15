@@ -47,11 +47,14 @@ jobs:
             /p:AppVersion=${{ steps.ver.outputs.version }} `
             /p:QtInstall=$env:QT_ROOT_DIR `
             /m
-          echo "plugin_name=$($sln.BaseName)" >> $env:GITHUB_OUTPUT
+          $pluginName = $sln.BaseName
+          Write-Host "Plugin name: $pluginName"
+          echo "plugin_name=$pluginName" >> $env:GITHUB_OUTPUT
 
       - name: Deploy
         shell: pwsh
         run: |
+          Write-Host "Plugin name: ${{ steps.build.outputs.plugin_name }}"
           mkdir dist
           Copy-Item x64/Release/${{ steps.build.outputs.plugin_name }}.dll dist/
 
