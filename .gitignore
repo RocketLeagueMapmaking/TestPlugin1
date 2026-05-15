@@ -1,0 +1,24 @@
+# Compiled Files
+*.exe
+*.dll
+*.so
+dist/
+
+# VS Build and metadata
+.vs/
+out/
+x64/
+Debug/
+Release/
+*.user
+*.suo
+*.sln.doccache
+
+# Qt-generated files
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.qm
+*.autosave
+
