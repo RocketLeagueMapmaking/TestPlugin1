@@ -67,7 +67,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <PostBuildEvent>
-      <Command>xcopy /y "$(TargetPath)" "F:\Code\VSProjects\RLMMToolkit\x64\$(Configuration)\plugins\"</Command>
+      <Command>if not "$(CI)"=="true" xcopy /y "$(TargetPath)" "F:\Code\VSProjects\RLMMToolkit\x64\$(Configuration)\plugins\"</Command>
     </PostBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>F:\Code\VSProjects\TestPlugin1\TestPlugin1\x64\Release\qt\moc;$(IntDir)qt\moc;F:\Code\VSProjects\TestPlugin1\TestPlugin1\x64\Debug\qt\moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -75,7 +75,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <PostBuildEvent>
-      <Command>xcopy /y "$(TargetPath)" "F:\Code\VSProjects\RLMMToolkit\x64\$(Configuration)\plugins\"</Command>
+      <Command>if not "$(CI)"=="true" xcopy /y "$(TargetPath)" "F:\Code\VSProjects\RLMMToolkit\x64\$(Configuration)\plugins\"</Command>
     </PostBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>F:\Code\VSProjects\TestPlugin1\TestPlugin1\x64\Release\qt\moc;$(IntDir)qt\moc;F:\Code\VSProjects\TestPlugin1\TestPlugin1\x64\Debug\qt\moc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
