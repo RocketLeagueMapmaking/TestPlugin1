@@ -21,3 +21,11 @@ QString ExamplePlugin::name() const {
 int ExamplePlugin::version() const {
 	return 1;
 }
+
+void ExamplePlugin::initialize() {}
+
+void ExamplePlugin::start() {}
+
+void ExamplePlugin::stop() {}
+
+void ExamplePlugin::shutdown() {}

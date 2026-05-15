@@ -17,6 +17,11 @@ public:
 	QString name() const override;
 	int version() const override;
 
+	void initialize() override;
+	void start() override;
+	void stop() override;
+	void shutdown() override;
+
 private:
 	QWidget mWidget;
 	QPushButton mButton;
