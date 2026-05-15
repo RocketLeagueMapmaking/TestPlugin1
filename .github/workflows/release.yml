@@ -37,6 +37,17 @@ jobs:
       - name: Set up MSBuild
         uses: microsoft/setup-msbuild@v3
 
+      - name: Install Qt MSBuild
+        shell: pwsh
+        run: |
+          nuget install QtMSBuild `
+            -OutputDirectory packages `
+            -NonInteractive
+          $qtMsBuild = Get-ChildItem -Path packages -Filter Qt.props -Recurse |
+            Select-Object -First 1 |
+            Split-Path
+          echo "QT_MSBUILD=$qtMsBuild" >> $env:GITHUB_ENV
+
       - name: Build
         shell: pwsh
         run: |
@@ -46,6 +57,7 @@ jobs:
             /p:Platform=x64 `
             /p:AppVersion=${{ steps.ver.outputs.version }} `
             /p:QtInstall=$env:QT_ROOT_DIR `
+            /p:QtMsBuild=$env:QT_MSBUILD `
             /m
           echo "plugin_name=$($sln.BaseName)" >> $env:GITHUB_OUTPUT
 
