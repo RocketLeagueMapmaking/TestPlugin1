@@ -41,6 +41,7 @@ jobs:
         shell: pwsh
         run: |
           $sln = Get-ChildItem -Filter *.slnx | Select-Object -First 1
+          Write-Host "Found solution: $($sln.Name)"
           msbuild $sln.FullName `
             /p:Configuration=Release `
             /p:Platform=x64 `
@@ -49,7 +50,7 @@ jobs:
             /m
           $pluginName = $sln.BaseName
           Write-Host "Plugin name: $pluginName"
-          echo "plugin_name=$pluginName" >> $env:GITHUB_OUTPUT
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "plugin_name=$pluginName"
 
       - name: Deploy
         shell: pwsh
