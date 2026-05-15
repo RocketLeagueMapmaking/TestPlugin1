@@ -41,29 +41,25 @@ jobs:
         shell: pwsh
         run: |
           $sln = Get-ChildItem -Filter *.slnx | Select-Object -First 1
-          Write-Host "Found solution: $($sln.Name)"
           msbuild $sln.FullName `
             /p:Configuration=Release `
             /p:Platform=x64 `
             /p:AppVersion=${{ steps.ver.outputs.version }} `
             /p:QtInstall=$env:QT_ROOT_DIR `
             /m
-          $pluginName = $sln.BaseName
-          Write-Host "Plugin name: $pluginName"
-          Add-Content -Path $env:GITHUB_OUTPUT -Value "plugin_name=$pluginName"
+          Add-Content -Path $env:GITHUB_ENV -Value "PLUGIN_NAME=$($sln.BaseName)"
 
       - name: Deploy
         shell: pwsh
         run: |
-          Write-Host "Plugin name: ${{ steps.build.outputs.plugin_name }}"
+          Write-Host "Plugin name: $env:PLUGIN_NAME"
           mkdir dist
-          Copy-Item x64/Release/${{ steps.build.outputs.plugin_name }}.dll dist/
+          Copy-Item x64/Release/$env:PLUGIN_NAME.dll dist/
 
       - name: Zip
         shell: pwsh
         run: |
-          Compress-Archive dist/* `
-            ${{ steps.build.outputs.plugin_name }}-${{ steps.ver.outputs.version }}.zip
+          Compress-Archive dist/* $env:PLUGIN_NAME-${{ steps.ver.outputs.version }}.zip
 
       - uses: actions/upload-artifact@v6
         with:
